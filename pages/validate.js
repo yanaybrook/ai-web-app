@@ -1,23 +1,22 @@
-// pages/validate.jsx
-import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import React, { useState } from 'react'
+import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
-export default function ValidatePage() {
-  const [apiKey, setApiKey] = useState('');
-  const [isValidated, setIsValidated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+function ValidatePage() {
+  const [apiKey, setApiKey] = useState('')
+  const [isValidated, setIsValidated] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const validateKey = async () => {
     if (!apiKey.startsWith('sk-')) {
-      setError('API key must start with "sk-"');
-      return;
+      setError('API key must start with "sk-"')
+      return
     }
 
-    setLoading(true);
-    setError('');
+    setLoading(true)
+    setError('')
 
     try {
       const response = await fetch('/api/validate-key', {
@@ -26,28 +25,28 @@ export default function ValidatePage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ apiKey }),
-      });
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (response.ok) {
-        setIsValidated(true);
-        setError('');
+        setIsValidated(true)
+        setError('')
       } else {
-        setError(data.error || 'Invalid API key');
-        setIsValidated(false);
+        setError(data.error || 'Invalid API key')
+        setIsValidated(false)
       }
     } catch (err) {
-      setError('Connection error. Please try again.');
-      setIsValidated(false);
+      setError('Connection error. Please try again.')
+      setIsValidated(false)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="p-6 max-w-xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <Card className="max-w-md mx-auto p-6">
         {!isValidated ? (
           <div className="space-y-4">
             <div className="space-y-2">
@@ -79,8 +78,8 @@ export default function ValidatePage() {
             <Button 
               variant="outline" 
               onClick={() => {
-                setIsValidated(false);
-                setApiKey('');
+                setIsValidated(false)
+                setApiKey('')
               }}
             >
               Enter Different Key
@@ -89,5 +88,7 @@ export default function ValidatePage() {
         )}
       </Card>
     </div>
-  );
+  )
 }
+
+export default ValidatePage
