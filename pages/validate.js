@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-function ValidatePage() {
+const ValidatePage = () => {
   const [apiKey, setApiKey] = useState('')
   const [isValidated, setIsValidated] = useState(false)
   const [loading, setLoading] = useState(false)
